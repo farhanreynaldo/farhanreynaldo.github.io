@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Less Probable</title>
-    <link>farhanreynaldo.github.io/</link>
+    <link>/</link>
     <description>Recent content on Less Probable</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 16 May 2020 21:38:01 +0700</lastBuildDate>
     
-	<atom:link href="farhanreynaldo.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>My First Post</title>
-      <link>farhanreynaldo.github.io/posts/my-first-post/</link>
+      <link>/posts/my-first-post/</link>
       <pubDate>Sat, 16 May 2020 21:38:01 +0700</pubDate>
       
-      <guid>farhanreynaldo.github.io/posts/my-first-post/</guid>
+      <guid>/posts/my-first-post/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>farhanreynaldo.github.io/about/</link>
+      <link>/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>farhanreynaldo.github.io/about/</guid>
+      <guid>/about/</guid>
       <description>Hello, world! </description>
     </item>
     
