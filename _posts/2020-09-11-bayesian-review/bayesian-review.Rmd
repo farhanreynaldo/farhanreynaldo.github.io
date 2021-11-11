@@ -1,0 +1,112 @@
+---
+title: "Bayesian Review"
+description: |
+  All about that bayes
+preview: preview.png
+repository_url: https://github.com/farhanreynaldo/side-project
+author:
+  - name: Farhan Reynaldo
+    url: http://flatprior.xyz
+date: 2020-05-23
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+Imagine you are buying a new book in e-commerce, but there is several sellers who sell that book. Because of your past trauma bought stuff online, you look at the seller's reviews rating as your guide to choose where to buy.
+
+* Seller #1: 100% positive review by 10 reviewers.
+* Seller #2: 97% positive review by 100 reviewers.
+* Seller #3: 94.3% positive review by 1000 reviewers.
+
+Given this situation, which seller would you choose?
+
+## Experiment
+
+We are tempted to choose seller #1, as those perfect 100% positive reviews would definitely gave you reassurance to buy from seller #1. But, let's put in another perspective. Let's say that each seller have their *true positive rate*, which means there is a constant that defined how well the seller run their shop measured by positive feedback they got. So, all positive reviews from seller #1 might be happened by chance because we haven't get more reviewers to review the product. Let me show you an example. Assuming seller #1 have 95% true positive rate, so
+
+```python
+import numpy as np
+import pymc3 as pm
+import arviz as az
+import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn-darkgrid')
+print('Running with PyMC3 version v.{}'.format(pm.__version__))
+
+>> Running with PyMC3 version v.3.8
+```
+
+```python
+np.random.seed(12)
+
+SELLER_1_TRUE_RATE = 0.95
+sum(np.random.binomial(10, SELLER_1_TRUE_RATE, 1000) == 10)
+
+>> 577
+```
+
+By doing 1000 simulations, we would expect seller #1 to get all positive reviews 577 times. Simply put, there is 57.7% chance that  seller #1 get all positive reviews given the true positive rate. We could do this for every value of true positive rate and get the probability for any given number of positive reviews. Basically, we're trying to find what is the most likely true positive rate for each sellers based on data we have. We will model the probability of true positive rate using beta distribution and model the number of positive reviews using binomial distribution. We use PyMC3 as our tools to model this problem.
+
+```python
+# total reviews, number of positive reviews
+n_1, positive_1 = 10, 10
+n_2, positive_2 = 100, 97
+n_3, positive_3 = 1000, 943
+
+with pm.Model() as review_1:
+  p_1 = pm.Beta('p_1', alpha=2, beta=2)
+  y = pm.Binomial('y', n=n_1, p=p_1, observed=positive_1)
+  trace_1 = pm.sample(chains=4)
+
+with pm.Model() as review_2:
+  p_2 = pm.Beta('p_2', alpha=2, beta=2)
+  y = pm.Binomial('y', n=n_2, p=p_2, observed=positive_2)
+  trace_2 = pm.sample(chains=4)
+
+with pm.Model() as review_3:
+  p_3 = pm.Beta('p_3', alpha=2, beta=2)
+  y = pm.Binomial('y', n=n_3, p=p_3, observed=positive_3)
+  trace_3 = pm.sample(chains=4)
+
+az.plot_trace(trace_1);
+az.plot_trace(trace_2);
+az.plot_trace(trace_3);
+```
+
+![Figure 1: Traceplot](trace.png)
+
+```python
+p1_summary = pm.summary(trace_1, round_to=3, credible_interval=0.89)
+p2_summary = pm.summary(trace_2, round_to=3, credible_interval=0.89)
+p3_summary = pm.summary(trace_3, round_to=3, credible_interval=0.89)
+summary = pd.concat([p1_summary, p2_summary, p3_summary])
+```
+
+![Figure 2: Trace Dataframe](trace-dataframe.png)
+
+Based on table above, we could see that seller #1 has lower mean and wider interval compare to seller #2 and seller #3. As we have the parameter distribution, we could calculate the probability that buying from seller #2 would have better experience than seller #1.
+
+```python
+np.mean(trace_2['p_2'] > trace_1['p_1']) * 100
+
+>> 85.98%
+```
+
+So, there is a good chance that you would have better experience from buying from seller #2 rather than seller #1.
+
+## Conclusion
+
+To conclude, if we only have a relatively small data, we would have a lot of uncertainty around the positive rate, hence the average positive reviews could be misleading. But if we have a lot of reviews, using average of positive reviews would be sufficient.
+
+## Acknowledgments {.appendix}
+
+This blogpost is heavily inspired by 3Blue1Brown video on [Binomial distributions | Probabilities of probabilities](https://www.youtube.com/watch?v=8idr1WZ1A7Q).

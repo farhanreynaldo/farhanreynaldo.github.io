@@ -1,0 +1,19 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "Farhan Reynaldo",
+      "author": [],
+      "contents": "\n\n          \n          \n          Farhan Reynaldo\n          \n          \n          Home\n          About\n          Resume\n          ☰\n          \n          \n      \n        \n          \n            Farhan Reynaldo\n          \n          \n            \n              I’m a data scientist in Delman and a bioengineer by education, graduated from Institut Teknologi Bandung. My interest lies in the field of bayesian data analysis and causal inference.\n            \n            \n              I’m a data scientist in Delman and a bioengineer by education, graduated from Institut Teknologi Bandung. My interest lies in the field of bayesian data analysis and causal inference.\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      Twitter\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    Twitter\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-10-23T22:07:00+07:00"
+    },
+    {
+      "path": "index.html",
+      "title": "",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-10-23T22:07:01+07:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

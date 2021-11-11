@@ -1,0 +1,95 @@
+---
+title: "Many-faced of Test"
+description: |
+  A short description of the post.
+author:
+  - name: Farhan Reynaldo
+    url: https://flatprior.xyz
+date: 09-20-2020
+draft: true
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Introduction 
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem a leo elementum imperdiet. Nullam dignissim consequat diam, placerat imperdiet orci euismod nec. Curabitur a fermentum quam. Etiam eu dui iaculis, pharetra enim vel, euismod nulla. Sed sodales lacus a finibus congue. Nullam ornare a dui non lobortis. Cras fringilla tortor pulvinar nisl semper aliquet. Mauris lobortis leo et lacus feugiat sagittis. Aliquam erat volutpat. Cras sem velit, semper ut velit sed, rhoncus cursus ante. Aliquam ultrices aliquam mauris. Curabitur eget mattis nulla, vitae vehicula ligula. Vestibulum finibus rutrum est, vitae dictum magna placerat sed. 
+
+```{r, echo = TRUE}
+drug <- c(99.,  110.,  107.,  104.,  103.,  105.,  105.,  110.,   99.,
+        109.,  100.,  102.,  104.,  104.,  100.,  104.,  101.,  104.,
+        101.,  100.,  109.,  104.,  105.,  112.,   97.,  106.,  103.,
+        101.,  101.,  104.,   96.,  102.,  101.,  100.,   92.,  108.,
+         97.,  106.,   96.,   90.,  109.,  108.,  105.,  104.,  110.,
+         92.,  100.)
+
+placebo <- c(95.,  105.,  103.,   99.,  104.,   98.,  103.,  104.,  102.,
+         91.,   97.,  101.,  100.,  113.,   98.,  102.,  100.,  105.,
+         97.,   94.,  104.,   92.,   98.,  105.,  106.,  101.,  106.,
+        105.,  101.,  105.,  102.,   95.,   91.,   99.,   96.,  102.,
+         94.,   93.,   99.,   99.,  113.,   96.)
+
+iq_drug <- tibble(
+  score = c(placebo, drug),
+  treatment = rep(c("placebo", "drug"), times = c(length(placebo), length(drug)))
+)
+```
+
+### Plain Vanilla t-test
+
+ Integer malesuada nec lorem sit amet commodo. Phasellus egestas nunc urna, sed porta tortor pharetra id. Duis ac suscipit enim, eu cursus quam. Maecenas porttitor magna quis tellus pellentesque mattis in quis dui. In rhoncus elit eu magna sagittis, vitae auctor sapien finibus. Duis gravida ante ut urna convallis congue. Fusce blandit sapien in hendrerit rhoncus. Proin condimentum diam in metus porttitor tempor. Proin gravida urna ut ipsum vulputate, non suscipit elit egestas. Suspendisse eget mi et felis euismod vestibulum. Nam pulvinar, lacus id viverra tristique, ante orci porta tellus, id bibendum sem elit blandit purus. Duis consectetur, augue nec semper volutpat, dolor nulla facilisis quam, rhoncus aliquam ipsum dolor id quam. Nullam porttitor nibh at turpis porttitor dapibus. In vestibulum et magna ac consequat. Nunc at sapien hendrerit, dapibus ante molestie, pharetra lorem. 
+
+```{r echo = TRUE}
+t.test(placebo, drug)
+```
+
+### Linear regression
+
+ Mauris nec neque leo. Praesent sed justo nisi. In non purus blandit quam laoreet dapibus. Maecenas venenatis neque ut odio pulvinar pellentesque. Phasellus feugiat rutrum purus sit amet facilisis. Quisque sodales scelerisque ante sed maximus. Etiam a elementum risus, lacinia accumsan lectus. Integer est eros, lobortis ut purus non, ullamcorper dictum dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec at hendrerit lectus, id accumsan ex. Donec vitae orci ut libero faucibus sodales eget efficitur sem.
+
+```{r echo = TRUE}
+model <- lm(score ~ treatment, data = iq_drug)
+summary(model)
+```
+
+### Simulation
+
+ Praesent sollicitudin ut enim mollis lacinia. Integer vel mollis dui. Quisque turpis nisi, eleifend eu luctus et, dapibus sed erat. Proin leo diam, pellentesque nec suscipit nec, venenatis id velit. Aenean tincidunt, felis non condimentum elementum, mi risus interdum urna, at tempor nisi elit a diam. Nam nec nunc nec turpis tempus mattis. Nunc vel mi eget nunc fringilla dignissim eget in dui. Fusce ullamcorper sapien eget ex maximus, nec commodo lorem egestas. Mauris diam metus, consectetur id lectus ac, dictum semper mi. Proin maximus suscipit feugiat. Ut vel lacus in odio fringilla aliquet. Vivamus vehicula et enim quis pellentesque. Vestibulum elementum augue in enim dictum ultricies. 
+
+```{r echo = TRUE}
+set.seed(12)
+N = 100000
+pool <- c(placebo, drug)
+actual_diff <- mean(drug) - mean(placebo)
+test_stats <- rep(NA, N)
+
+for (i in 1:N) {
+  len <- length(placebo)
+  shuffle_data <- sample(pool)
+  shuffle_placebo <- shuffle_data[1:len]
+  shuffle_drug <- shuffle_data[(len+1):length(pool)]
+  test_stats[i] <- abs(mean(shuffle_placebo) - mean(shuffle_drug))
+}
+
+round(mean(test_stats >= actual_diff), 3)
+```
+
+### Bayesian
+
+```{r echo = TRUE}
+library(rstanarm)
+
+fit <- stan_glm(score ~ treatment, data = iq_drug, refresh = 0)
+
+launch_shinystan(fit)
+```
+

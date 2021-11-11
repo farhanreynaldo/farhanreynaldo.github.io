@@ -1,0 +1,136 @@
+---
+title: "Coupon Collector's Problem"
+description: |
+  Gotta Catch 'Em All!
+preview: preview.png
+repository_url: https://github.com/farhanreynaldo/side-project
+author:
+  - name: Farhan Reynaldo
+    url: https://weaklyinformative.com
+date: 03-27-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+Recently, I saw a Twitter user collected an entire deck of playing cards on the street while doing his daily walk. He claimed that it took around 6 months to complete the deck. I was wondering, is the story fabricated? So, I run the simulation to estimate how long does it take to complete the deck under several assumptions. 
+
+But, before we move on to the simulation, the story of completing the deck can be model as coupon collector's problem, which asks the following question: 
+
+> Given n coupons, how many coupons do you expect you need to draw with replacement before having drawn each coupon at least once?
+
+If we put the statement into our context, the question would be:
+
+> Given 52 unique playing cards, how many cards do you expect you need to pick before having picked each card at least once?
+
+The simulation of each pick can be represented by geometric distribution, where it calculates the probability of k failures before the first success. In our case, what is the probability that we pick a unique card that we don't have yet collected? Since in our first try we do not have any cards, then the probability equals $52/52 = 1$ . In our second try, the probability that we pick a new unique cards would be $51/52$, since picking up the previous card is count as failure because we are looking for a new unique cards. We could assume that each day, he pick exactly 1 cards since he did his daily walk.
+
+Generally, the probability that the $k^{th}$ trial (out of k trials) is the first success equal
+
+$$
+Pr(Y = k) = (1-p)^{k-1}p
+$$
+for k = 1, 2, 3, and so on. So, on the first day where $k=1$, the equation is written as
+
+$$
+\begin{align}
+Pr(Y = 1) &= (1-p)^{1-1}p \\
+          &= p = \frac{52}{52} = 1
+\end{align}
+$$
+In this problem, we are interested in expected days until we find a new unique cards. We could write succinctly the expectation as
+
+$$
+t \sim Geometric(p) \\
+E[t] = \frac{1}{p}
+$$
+And by the linearity of expectations, the number of days we need to complete the entire deck is
+
+$$
+\begin{align}
+E[T] &= E[t_1] + E[t_2] + \dots + E[t_{52}] \\
+      &= \frac{1}{p_1} + \frac{1}{p_2} + \dots + \frac{1}{p_{52}} \\
+      &= \frac{1}{\frac{52}{52}} + \frac{1}{\frac{51}{52}} + \dots + \frac{1}{\frac{1}{52}} \\
+      &= \frac{52}{52} + \frac{52}{51} + \dots + \frac{52}{1} \approx 236
+\end{align}
+$$
+
+That is a lot of equations. Let's calculate the expected days using Python.
+
+## Experiment
+
+```{python}
+import random
+random.seed(12)
+```
+
+
+```{python, echo=TRUE}
+def analytic(n):
+    return sum(n/i for i in range(n, 0, -1))
+
+analytic(52)
+```
+
+Or, we could actually calculate the expected days by simulation with the following code:
+
+```{python, echo=TRUE}
+from random import random, randint
+from statistics import mean
+
+def expected_days(n_cards):
+    cards = set()
+    days = 0
+    while len(cards) < n_cards:
+        cards.add(randint(1, n_cards))
+        days += 1
+    return days
+
+days = [expected_days(52) for _ in range(10000)]
+mean(days)
+```
+
+As expected, the number is similar. So, given that he pick 1 card everyday, the expected number of days until the deck completed is $\approx$ 236 days, or around 8 months. What if he pick 2 cards everyday? Well, the expected days is equal to
+
+```{python, echo=TRUE}
+def expected_days(n_cards, n_pick=2):
+    cards = set()
+    days = 0
+    while len(cards) < n_cards:
+        cards.update(randint(1, n_cards) for _ in range(n_pick))
+        days += 1
+    return days
+
+days = [expected_days(52, n_pick=2) for _ in range(10000)]
+mean(days)
+```
+
+About 4 months. Or to be realistic, there are days when he pick 1 or 2 cards. Assuming the probability is equal, the expected days is equal to
+
+```{python, echo=TRUE}
+def expected_days(n_cards):
+    cards = set()
+    days = 0
+    n_pick = randint(1, 2)
+    while len(cards) < n_cards:
+        cards.update(randint(1, n_cards) for _ in range(n_pick))
+        days += 1
+    return days
+
+days = [expected_days(52) for _ in range(10000)]
+mean(days)
+```
+
+Under this assumptions, it took around 6 months. 
+
+## Conclusion
+
+Well, if you asked me again, is the story fabricated? My answer is I do not know, because I just ran the simulation to see how the result changes as I conditioned on my assumptions. But, it's been fun to model this problem.

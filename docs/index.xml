@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Farhan Reynaldo</title>
+    <link>https://weaklyinformative.com</link>
+    <atom:link href="https://weaklyinformative.com/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Weakly Informative
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Sat, 23 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>On Lincoln Index</title>
+      <dc:creator>Farhan Reynaldo</dc:creator>
+      <link>https://weaklyinformative.com/posts/2021-10-23-on-lincoln-index</link>
+      <description>On your mark, release, recapture.</description>
+      <guid>https://weaklyinformative.com/posts/2021-10-23-on-lincoln-index</guid>
+      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://weaklyinformative.com/posts/2021-10-23-on-lincoln-index/on-lincoln-index_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>On Shower Problem</title>
+      <dc:creator>Farhan Reynaldo</dc:creator>
+      <link>https://weaklyinformative.com/posts/2021-06-27-on-shower-problem</link>
+      <description>Cause you're hot then you're cold, You're wrong when it's right.</description>
+      <guid>https://weaklyinformative.com/posts/2021-06-27-on-shower-problem</guid>
+      <pubDate>Sun, 27 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://weaklyinformative.com/posts/2021-06-27-on-shower-problem/on-shower-problem_files/figure-html5/unnamed-chunk-5-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Coupon Collector's Problem</title>
+      <dc:creator>Farhan Reynaldo</dc:creator>
+      <link>https://weaklyinformative.com/posts/2021-03-27-coupon-collectors-problem</link>
+      <description>Gotta Catch 'Em All!</description>
+      <guid>https://weaklyinformative.com/posts/2021-03-27-coupon-collectors-problem</guid>
+      <pubDate>Sat, 27 Mar 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://weaklyinformative.com/posts/2021-03-27-coupon-collectors-problem/preview.png" medium="image" type="image/png" width="577" height="433"/>
+    </item>
+    <item>
+      <title>Approximate Bayesian Computation</title>
+      <dc:creator>Farhan Reynaldo</dc:creator>
+      <link>https://weaklyinformative.com/posts/2020-09-12-approximate-bayesian-computation</link>
+      <description>When all you have is tiny data</description>
+      <guid>https://weaklyinformative.com/posts/2020-09-12-approximate-bayesian-computation</guid>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://weaklyinformative.com/posts/2020-09-12-approximate-bayesian-computation/preview.png" medium="image" type="image/png" width="577" height="433"/>
+    </item>
+    <item>
+      <title>Bayesian Review</title>
+      <dc:creator>Farhan Reynaldo</dc:creator>
+      <link>https://weaklyinformative.com/posts/2020-09-11-bayesian-review</link>
+      <description>All about that bayes</description>
+      <guid>https://weaklyinformative.com/posts/2020-09-11-bayesian-review</guid>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://weaklyinformative.com/posts/2020-09-11-bayesian-review/preview.png" medium="image" type="image/png" width="707" height="353"/>
+    </item>
+  </channel>
+</rss>

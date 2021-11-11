@@ -1,0 +1,39 @@
+---
+title: "On Conjugate Prior"
+description: |
+  A short description of the post.
+author:
+  - name: Farhan Reynaldo
+    url: https://weaklyinformative.com
+date: 04-20-2021
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+The audience would be someone who familiar with probability, dericvative and integral.
+
+beta distribution is conjugate prior for binomial distribution.
+
+example on binomial distribution, with specified prior and calculate the posterior based on data the retrieve.
+
+
+## Case Study
+
+Let's assume we have monitored the occurrence of a disease in our pond. The data is shown below:
+
+```{r}
+ponds <- c(1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 
+           1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0)
+mean(ponds)
+```
+if we found the disease in a particular pond, we label it as `1`, and `0` otherwise.
+
+
+

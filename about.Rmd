@@ -1,0 +1,17 @@
+---
+title: "Farhan Reynaldo"
+image: "images/logo.png"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/in/farhanreynaldo"
+  - label: Twitter
+    url: "https://twitter.com/xynx"
+  - label: GitHub
+    url: "https://github.com/farhanreynaldo"
+  - label: Email
+    url: "mailto:farhanreynaldo@email.com"
+output:
+  postcards::jolla
+---
+ 
+I'm a data scientist in [Delman](https://delman.io) and a bioengineer by education, graduated from [Institut Teknologi Bandung](https://itb.ac.id). My interest lies in the field of bayesian data analysis and causal inference.

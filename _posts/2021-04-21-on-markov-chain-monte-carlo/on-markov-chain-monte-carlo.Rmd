@@ -1,0 +1,23 @@
+---
+title: "On Markov Chain Monte Carlo"
+description: |
+  A short description of the post.
+author:
+  - name: Farhan Reynaldo
+    url: https://flatprior.xyz
+date: 04-21-2021
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+More often than not, sampling from posterior distribution is quite hard, even analytically intractable.
+
+Sulit untuk sampling dari posterior distribution? Kenapa sulit? Karena either math-nya challenging, atau memang analytically intractable. Lalu, opsinya apa? pakai MCMC. Konsepnya adalah
+
